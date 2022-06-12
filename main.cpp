@@ -1,60 +1,97 @@
 #include <iostream>
 #include <string>
 
+enum RomanNumerals {
+    I =    1,
+    V =    5,
+    X =   10,
+    L =   50,
+    C =  100,
+    D =  500,
+    M = 1000
+};
+
+
 class Solution {
 public:
-//  TODO: implement negative stuff
     int romanToInt(std::string s) {
+        RomanNumerals rm;
+        
+        bool odd = 0;
         int result = 0;
         
-        for(int i = 0; i < s.length(); i++) {
-            switch (s[i]) {
+        int size = s.length();
+        
+        int nums[size];
+
+        for(int i = 0; i < size; i++) {
+            switch (s[i]) 
+            {
                 case 'I':
-                result = result + 1;
+                nums[i] = I;
                 continue;
                 
                 case 'V':
-                result = result + 5;
+                nums[i] = V;
                 continue;
                 
                 case 'X':
-                result = result + 10;
+                nums[i] = X;
                 continue;
                 
                 case 'L':
-                result = result + 50;
+                nums[i] = L;
                 continue;
                 
                 case 'C':
-                result = result + 100;
+                nums[i] = C;
                 continue;
                 
                 case 'D':
-                result = result + 500;
+                nums[i] = D;
                 continue;
                 
                 case 'M':
-                result = result + 1000;
+                nums[i] = M;
                 continue;
                 
                 default:
-                printf("ERROR: all input must be roman numerals");
+                printf("ERROR: Invalid input");
                 exit(1);
             }
         }
 
+        int i = 0;
+                
+        while(i < size) {
+            if(nums[i + 1] > M) {
+                result += nums[i];
+                i++;
+            } else if(nums[i] < nums[i + 1]) {
+                result += nums[i + 1] - nums[i];
+                i += 2;
+            } else {
+                result += nums[i];
+                i++;
+            }
+        }
+        
         return result;
     }
 };
 
-int main() {
+int main(int argc, char **argv) {
     Solution solution;
 
-    std::string input = "XVVM";
+    if(argc == 1) {
+        printf("ERROR: no input \n");
+        exit(1);
+    } 
+    
+    int result = solution.romanToInt(argv[1]);
 
-    int result = solution.romanToInt(input);
-
-    std::cout << " result: " << result << "\n";
+    std::cout << "Result: " << result << "\n";
+    
     return 0;
 }
 
