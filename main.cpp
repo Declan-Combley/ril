@@ -11,13 +11,12 @@ enum RomanNumerals {
     M = 1000
 };
 
-
 class Solution {
 public:
     int romanToInt(std::string s) {
         RomanNumerals rm;
         
-        bool odd = 0;
+        bool odd   = 0;
         int result = 0;
         
         int size = s.length();
@@ -94,5 +93,4 @@ int main(int argc, char **argv) {
     
     return 0;
 }
-
 
